@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>About</title>
+    </head>
+
+    <body>
+        <div>
+            Rango says here is the about page. <br />
+            <strong>{{ boldmessage }}</strong><br />
+        </div>
+        <div>
+			<a href = "http://127.0.0.1:8000/">Index</a><br />
+            <img src="{% static "images\murray.jpg " %}" alt = "Picture of Andy Murray"/>
+            <img src="{{MEDIA_URL}}cat.jpg"/>
+        </div>
+    </body>
+</html>
