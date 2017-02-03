@@ -10,11 +10,11 @@ def populate():
 
 	python_pages = [
 	{"title": "Official Python Tutorial",
-	"url":"http://docs.python.org/2/tutorial/", "views":50, },
+	"url":"http://docs.python.org/2/tutorial/", "views":64, },
 	{"title":"How to Think like a Computer Scientist",
-	"url":"http://www.greenteapress.com/thinkpython/", "views":25},
+	"url":"http://www.greenteapress.com/thinkpython/", "views":32},
 	{"title":"Learn Python in 10 Minutes",
-	"url":"http://www.korokithakis.net/tutorials/python/", "views":12} ]
+	"url":"http://www.korokithakis.net/tutorials/python/", "views":16} ]
 	
 	django_pages = [
 	{"title":"Official Django Tutorial",
