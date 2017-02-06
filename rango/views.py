@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from rango.models import Category, Page
-from django.http import HttpResponse
 from rango.forms import CategoryForm, PageForm
 
 def index(request):
@@ -12,7 +11,6 @@ def index(request):
 def about(request):
     context_dict = {'boldmessage': "This tutorial has been put together by Ben Stevenson!" }
     return render(request, 'rango/about.html', context = context_dict)
-    #return HttpResponse("Rango says this is the about page!")
 
 def show_category(request, category_name_slug):
     context_dict = {}
