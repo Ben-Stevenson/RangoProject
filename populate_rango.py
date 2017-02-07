@@ -10,11 +10,11 @@ def populate():
 
 	python_pages = [
 	{"title": "Official Python Tutorial",
-	"url":"http://docs.python.org/2/tutorial/", "views":64, },
+	"url":"http://docs.python.org/2/tutorial/", "views":32, },
 	{"title":"How to Think like a Computer Scientist",
-	"url":"http://www.greenteapress.com/thinkpython/", "views":32},
+	"url":"http://www.greenteapress.com/thinkpython/", "views":16},
 	{"title":"Learn Python in 10 Minutes",
-	"url":"http://www.korokithakis.net/tutorials/python/", "views":16} ]
+	"url":"http://www.korokithakis.net/tutorials/python/", "views":8} ]
 	
 	django_pages = [
 	{"title":"Official Django Tutorial",
@@ -26,9 +26,9 @@ def populate():
 
 	other_pages = [
 	{"title":"Bottle",
-	"url":"http://bottlepy.org/docs/dev/", "views":16},
+	"url":"http://bottlepy.org/docs/dev/", "views":32},
 	{"title":"Flask",
-	"url":"http://flask.pocoo.org", "views":8} ]
+	"url":"http://flask.pocoo.org", "views":16} ]
 
 	cats = {"Python": {"pages": python_pages, "views":128,"likes":64},
 	"Django": {"pages": django_pages, "views":64, "likes":32},
@@ -44,14 +44,14 @@ def populate():
 		for p in Page.objects.filter(category=c):
 			print("- {0} - {1}".format(str(c), str(p)))
 
-def add_page(cat, title, url, views):
+def add_page(cat, title, url, views=0):
 	p = Page.objects.get_or_create(category=cat, title=title)[0]
 	p.url=url
 	p.views=views
 	p.save()
 	return p
 
-def add_cat(name, views, likes ):
+def add_cat(name, views =0 , likes =0 ):
 	c = Category.objects.get_or_create(name=name)[0]
 	c.views = views
 	c.likes = likes
@@ -61,4 +61,4 @@ def add_cat(name, views, likes ):
 
 if __name__ == '__main__':
 	print("Starting Rango population script...")
-populate()
+	populate()
