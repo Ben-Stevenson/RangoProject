@@ -18,16 +18,17 @@ def index(request):
 	page_list = Page.objects.order_by('-views')[:5]
 	context_dict = {'categories':category_list , 'pages': page_list}
 	
-	visitor_cookie_handle(request)
+	visitor_cookie_handler(request)
 	context_dict['visits'] = request.session['visits']
 	
-	response = render(request, 'rango/index.html', context_dict)
+	response = render(request, 'rango/index.html', context = context_dict)
 	return response
 
 def about(request):
 	request.session.set_test_cookie()
 	visitor_cookie_handler(request)
-	context_dict = {'boldmessage': "This tutorial has been put together by Ben Stevenson!",  }
+	context_dict = {'boldmessage': "This tutorial has been put together by Ben Stevenson!"
+					,'vistis': request.session['visits'] }
 	response = render(request, 'rango/about.html', context = context_dict)
 	return response
 	
@@ -37,7 +38,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 	
-def visitor_cookie_handle(request):
+def visitor_cookie_handler(request):
 	visits = int(request.COOKIES.get('visits', '1'))
 	
 	last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
