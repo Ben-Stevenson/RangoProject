@@ -41,7 +41,7 @@ def about(request):
 	request.session.set_test_cookie()
 	visitor_cookie_handler(request)
 	context_dict = {'boldmessage': "This tutorial has been put together by Ben Stevenson!"
-					,'vistis': request.session['visits'] }
+					,'visits': request.session['visits'] }
 	response = render(request, 'rango/about.html', context = context_dict)
 	return response
 	
