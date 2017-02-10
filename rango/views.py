@@ -11,7 +11,20 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 
-
+def visitor_cookie_handler(request):
+	visits = int(request.COOKIES.get('visits', '1'))
+	
+	last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
+	last_visit_time = datetime.strptime(last_visit_cookie[:-7],'%Y-%m-%d %H:%M:%S')
+	
+	if (datetime.now() - last_visit_time).days > 0:
+		visits = visits + 1
+		request.session['last_visit'] = str(datetime.now())
+	else:
+		visits = 1
+		request.session['last_visit'] = last_visit_cookie
+	request.session['visits'] = visits
+	
 def index(request):
 	request.session.set_test_cookie()
 	category_list = Category.objects.order_by('-likes')[:5]
@@ -38,19 +51,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 	
-def visitor_cookie_handler(request):
-	visits = int(request.COOKIES.get('visits', '1'))
-	
-	last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
-	last_visit_time = datetime.strptime(last_visit_cookie[:-7],'%Y-%m-%d %H:%M:%S')
-	
-	if (datetime.now() - last_visit_time).days > 0:
-		visits = visits + 1
-		request.session['last_visit'] = str(datetime.now())
-	else:
-		visits = 1
-		request.session['last_visit'] = last_visit_cookie
-	request.session['visits'] = visits
+
 
 
 def show_category(request, category_name_slug):
@@ -150,6 +151,6 @@ def restricted(request):
 @login_required
 def user_logout(request):
 	logout(request)
-	return HttpResponse(reverse('index'))
+	return HttpResponseRedirect(reverse('index'))
 
 
